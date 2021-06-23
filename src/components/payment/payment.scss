@@ -1,0 +1,62 @@
+.credit-card-container {
+  width: 360px;
+  //   height: 200px;
+  background: linear-gradient(
+    145deg,
+    rgba(98, 59, 209, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(217, 17, 173, 1) 100%
+  );
+  margin: 0 auto;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  input {
+    border-width: 0px;
+    padding: 6px;
+    border-radius: 4px;
+    &:focus-visible {
+      outline: unset;
+    }
+  }
+  .visa {
+    padding: 0px 0px 10px;
+    font-size: 1.725rem;
+  }
+
+  .card-no {
+    padding: 24px 0px;
+    text-align: end;
+    input {
+      width: 40px;
+      margin: 0px 4px;
+    }
+  }
+  .ccv-row {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .year-month {
+    // padding: 24px 0px;
+    > div {
+      font-size: 0.9rem;
+      margin: 6px 0px;
+    }
+    span {
+      margin: 0 10px;
+    }
+    input {
+      width: 20px;
+    }
+  }
+  .ccv {
+    > div {
+      margin: 6px 0px;
+      font-size: 0.9rem;
+    }
+    margin-left: 60px;
+    input {
+      width: 40px;
+    }
+  }
+}

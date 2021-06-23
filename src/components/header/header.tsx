@@ -1,7 +1,7 @@
 import React from "react";
 import "./header.scss";
 
-export function Header() {
+export function AppHeader() {
   return (
     <header className="App-header">
       <img src="icons/wallet.png" alt="" />

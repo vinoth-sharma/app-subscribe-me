@@ -5,9 +5,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #efefef;
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.flex{
+  display: flex;
+}
+.cursorPointer{
+  cursor: pointer;
+}
+.textCenter{
+  text-align: center;
+}
+.display-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.MuiButton-root.Mui-disabled{
+  border : 1px solid rgba(0, 0, 0, 0.26) !important;
 }
