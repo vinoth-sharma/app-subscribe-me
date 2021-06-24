@@ -126,7 +126,7 @@ export function SelectSubscriptionParams() {
         </div>
       </div>
       <div className="line-item">
-        <div>Upfront Payment<span className="red">*</span></div>
+        <div>Upfront Payment<span className="red">*</span><p>( Do Upfront Payment to avail 10% Discount )</p></div>
         <div style={{ width: "272px" }}>
           <FormControl component="fieldset">
             <RadioGroup
