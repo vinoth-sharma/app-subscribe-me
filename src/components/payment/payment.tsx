@@ -45,7 +45,7 @@ export function PaymentDetails( {validHandler}:PaymentProp ) {
         second.length === 4 &&
         third.length === 4 &&
         fourth.length === 4 &&
-        month.length === 2 &&
+        month.length >= 1 &&
         year.length === 2 &&
         cvv.length === 3
       ) {

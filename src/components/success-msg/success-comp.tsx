@@ -32,7 +32,7 @@ export function SuccessContainerDialog(props) {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Subscription Successfull!</DialogTitle>
+      <DialogTitle id="simple-dialog-title" className="textCenter">Subscription Successfull!</DialogTitle>
       <DialogContent className={classes.root}>
         <div className="success-checkmark">
           <div className="check-icon">
