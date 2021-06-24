@@ -43,7 +43,7 @@ export function SelectSubscriptionParams() {
   return (
     <div id="selectSub">
       <div className="line-item">
-        <div>Duration</div>
+        <div>Duration<span className="red">*</span></div>
         <div style={{ width: "272px" }}>
           <FormControl component="fieldset">
             <RadioGroup
@@ -96,7 +96,7 @@ export function SelectSubscriptionParams() {
         </div>
       </div>
       <div className="line-item">
-        <div>Amount of GigaBytes in a cloud</div>
+        <div>Amount of GigaBytes in a cloud<span className="red">*</span></div>
         <div style={{ width: "272px" }}>
           <FormControl component="fieldset">
             <RadioGroup
@@ -126,7 +126,7 @@ export function SelectSubscriptionParams() {
         </div>
       </div>
       <div className="line-item">
-        <div>Upfront Payment</div>
+        <div>Upfront Payment<span className="red">*</span></div>
         <div style={{ width: "272px" }}>
           <FormControl component="fieldset">
             <RadioGroup

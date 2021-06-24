@@ -273,6 +273,7 @@ export default function CustomizedSteppers() {
               ) : (
                 <div> $ {totalAmount} </div>
               )}
+              {/* { <img src="icons/io.png" style={{ width: "32px" }} alt="Best Seller" /> } */}
             </div>
             <div>
               <Button

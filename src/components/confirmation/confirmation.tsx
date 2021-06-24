@@ -62,7 +62,7 @@ export function Confirmation({ validHandler }: ConfirmationProp) {
         </div>
       </div>
       <div className="line-item">
-        <p>Please enter your email address</p>
+        <p>Please enter your email address<span className="red">*</span></p>
         <TextField
           autoFocus
           name="email"
