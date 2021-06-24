@@ -7,7 +7,7 @@ import {
   setUserSelection,
 } from "../../service/global.service";
 
-export function Confirmation({validHandler}) {
+export function Confirmation({ validHandler }) {
   const [terms, setTerms] = React.useState(false);
   const [email, setEmail] = React.useState("");
 
@@ -26,12 +26,9 @@ export function Confirmation({validHandler}) {
   }, []);
 
   useEffect(() => {
-     if(email.length >0 && terms)
-     validHandler(true)
-     else
-     validHandler(false)
-
-  }, [email,terms])
+    if (validateEmail(email) && terms) validHandler(true);
+    else validHandler(false);
+  }, [email, terms,validHandler]);
 
   const handleCheckBoxChange = (event) => {
     setTerms(event.target.checked);
@@ -86,4 +83,11 @@ export function Confirmation({validHandler}) {
       </div>
     </>
   );
+}
+
+function validateEmail(email) {
+  let re = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+  if (re.test(email)) {
+    return true;
+  } else return false;
 }

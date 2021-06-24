@@ -20,7 +20,7 @@ import {
   resetGlobalStorage,
   setStepCompletion,
   onValueChanges,
-  getGlobalStorageData,
+  postSubcriptionSelected,
 } from "../../service/global.service";
 
 const useQontoStepIconStyles = makeStyles({
@@ -205,13 +205,8 @@ export default function CustomizedSteppers() {
   const [isUserValid, setIsUserValid] = React.useState(false);
 
   useEffect(() => {
-
     const subscription = onValueChanges().subscribe((res) => {
-      const {
-        total_payable,
-        duration,
-        upfrontPayment
-      } = res;
+      const { total_payable, duration, upfrontPayment } = res;
       setTotal(total_payable);
       setDuration(duration);
       setUpfront(upfrontPayment);
@@ -219,7 +214,7 @@ export default function CustomizedSteppers() {
 
     return () => {
       subscription.unsubscribe();
-    }
+    };
   }, []);
 
   const getStepContent = (step) => {
@@ -229,11 +224,11 @@ export default function CustomizedSteppers() {
       case 1:
         return <PaymentDetails validHandler={setIsCardValid} />;
       case 2:
-        return <Confirmation validHandler={setIsUserValid}  />;
+        return <Confirmation validHandler={setIsUserValid} />;
       default:
-        return <Confirmation  validHandler={setIsUserValid}  />;
+        return <Confirmation validHandler={setIsUserValid} />;
     }
-  }
+  };
 
   const handleClose = () => {
     setActiveStep(0);
@@ -245,8 +240,11 @@ export default function CustomizedSteppers() {
     setStepCompletion(activeStep);
 
     if (activeStep === 2) {
-      setOpen(true);
-      return true;
+      postSubcriptionSelected().then((res) => {
+        if (res) {
+          setOpen(true);
+        } else return true;
+      });
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -254,45 +252,6 @@ export default function CustomizedSteppers() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
-  const validateNextBtn = () => {
-    // console.log("validate");
-    // console.log(res);
-    
-    // if(!res) return false
-    // const {
-    //   total_payable,
-    //   duration,
-    //   upfrontPayment,
-    //   card_no_1,
-    //   card_no_2,
-    //   card_no_3,
-    //   card_no_4,
-    //   expiry__m,
-    //   expiry__y,
-    //   cvv,
-    // } = res;
-    // if (activeStep === 1) {
-    //   if (
-    //     card_no_1.length === 4 &&
-    //     card_no_2.length === 4 &&
-    //     card_no_3.length === 4 &&
-    //     card_no_4.length === 4 &&
-    //     expiry__m.length === 2 &&
-    //     expiry__y.length === 2 &&
-    //     cvv === 3
-    //   ) {
-    //     console.log("true");
-    //   } else console.log("false");
-    // }
-
-    // console.log(activeStep);
-    // return false;
-  };
-
-
-  console.log("return");
-  
 
   return (
     <div className={classes.root}>
@@ -336,7 +295,13 @@ export default function CustomizedSteppers() {
                 Back
               </Button>
               <Button
-                disabled={activeStep === 1? !isCardValid : activeStep === 2? !isUserValid : false}
+                disabled={
+                  activeStep === 1
+                    ? !isCardValid
+                    : activeStep === 2
+                    ? !isUserValid
+                    : false
+                }
                 variant="contained"
                 color="primary"
                 onClick={handleNext}

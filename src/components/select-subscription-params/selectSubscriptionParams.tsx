@@ -3,7 +3,6 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import "./selectSubscriptionParams.scss";
 import {
   getGlobalStorageData,
@@ -53,8 +52,9 @@ export function SelectSubscriptionParams() {
               value={duration}
               onChange={handleChange}
             >
-              {durationSets.map(ele=>(
+              {durationSets.map((ele)=>(
               <FormControlLabel
+              key={ele.duration_months}
               value={ele.duration_months}
               control={<Radio />}
               label={

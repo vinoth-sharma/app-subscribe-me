@@ -27,39 +27,44 @@ export function PaymentDetails({validHandler}) {
   }, []);
 
   useEffect(()=>{
+    const validateCardData = () => {
+      if (
+        first.length === 4 &&
+        second.length === 4 &&
+        third.length === 4 &&
+        fourth.length === 4 &&
+        month.length === 2 &&
+        year.length === 2 &&
+        cvv.length === 3
+      ) {
+        validHandler(true);
+        
+      }
+      else{
+        validHandler(false);
+      }
+    };
     validateCardData();
-  },[first,second,third,fourth,month,year,cvv])
+  },[first,second,third,fourth,month,year,cvv,validHandler])
 
   const handleCardNoInput = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    if (name === "card_no_1") setFirst(value);
-    else if (name === "card_no_2") setSec(value);
-    else if (name === "card_no_3") setThird(value);
-    else if (name === "card_no_4") setFourth(value);
-    else if (name === "expiry__m") setMonth(value);
-    else if (name === "expiry__y") setYear(value);
-    else setCvv(value);
-    setUserSelection(name, value);
+
+    const re = /^[0-9\b]+$/;
+    if (e.target.value === '' || re.test(e.target.value)) {
+      let name = e.target.name;
+      let value = e.target.value;
+      if (name === "card_no_1") setFirst(value);
+      else if (name === "card_no_2") setSec(value);
+      else if (name === "card_no_3") setThird(value);
+      else if (name === "card_no_4") setFourth(value);
+      else if (name === "expiry__m") setMonth(value);
+      else if (name === "expiry__y") setYear(value);
+      else setCvv(value);
+      setUserSelection(name, value);
+    }
   };
 
-  const validateCardData = () => {
-    if (
-      first.length === 4 &&
-      second.length === 4 &&
-      third.length === 4 &&
-      fourth.length === 4 &&
-      month.length === 2 &&
-      year.length === 2 &&
-      cvv.length === 3
-    ) {
-      validHandler(true);
-      
-    }
-    else{
-      validHandler(false);
-    }
-  };
+
 
   return (
     <>
