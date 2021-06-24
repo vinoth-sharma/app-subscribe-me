@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, useEffect, useRef, useState } from "react";
 import {
   getGlobalStorageData,
   setUserSelection,
 } from "../../service/global.service";
 import "./payment.scss";
 
-export function PaymentDetails({validHandler}) {
+interface PaymentProp {
+  validHandler : Dispatch<boolean>
+}
+export function PaymentDetails( {validHandler}:PaymentProp ) {
   const [first, setFirst] = useState("");
   const [second, setSec] = useState("");
   const [third, setThird] = useState("");
@@ -14,6 +17,15 @@ export function PaymentDetails({validHandler}) {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [cvv, setCvv] = useState("");
+
+  let input1Ref = null;
+  let input2Ref = null;
+  let input3Ref = null;
+  let input4Ref = null;
+  let inputM = null;
+  let inputY = null;
+  let inputCvv = null;
+
 
   useEffect(() => {
     let data = getGlobalStorageData();
@@ -47,18 +59,35 @@ export function PaymentDetails({validHandler}) {
     validateCardData();
   },[first,second,third,fourth,month,year,cvv,validHandler])
 
-  const handleCardNoInput = (e) => {
-
+  const handleCardNoInput = (e:ChangeEvent<HTMLInputElement>) => {
     const re = /^[0-9\b]+$/;
     if (e.target.value === '' || re.test(e.target.value)) {
       let name = e.target.name;
       let value = e.target.value;
-      if (name === "card_no_1") setFirst(value);
-      else if (name === "card_no_2") setSec(value);
-      else if (name === "card_no_3") setThird(value);
-      else if (name === "card_no_4") setFourth(value);
-      else if (name === "expiry__m") setMonth(value);
-      else if (name === "expiry__y") setYear(value);
+      if (name === "card_no_1") { 
+        if(value.length === 4) input2Ref.focus();
+        setFirst(value);
+      }
+      else if (name === "card_no_2"){
+        if(value.length === 4) input3Ref.focus();
+        setSec(value);
+      } 
+      else if (name === "card_no_3"){
+        if(value.length === 4) input4Ref.focus();
+        setThird(value);
+      } 
+      else if (name === "card_no_4"){
+        if(value.length === 4) inputM.focus();
+        setFourth(value);
+      } 
+      else if (name === "expiry__m"){
+        if(value.length === 2) inputY.focus();
+        setMonth(value);
+      } 
+      else if (name === "expiry__y") {
+        if(value.length === 2) inputCvv.focus();
+        setYear(value);
+      }
       else setCvv(value);
       setUserSelection(name, value);
     }
@@ -73,6 +102,8 @@ export function PaymentDetails({validHandler}) {
         <div>Platinum</div>
         <div className="card-no">
           <input
+            autoFocus
+            ref={(btn)=>{input1Ref=btn}}
             placeholder="****"
             maxLength={4}
             onChange={handleCardNoInput}
@@ -80,6 +111,7 @@ export function PaymentDetails({validHandler}) {
             value={first}
           />
           <input
+            ref={(btn)=>{input2Ref=btn}}
             placeholder="****"
             maxLength={4}
             onChange={handleCardNoInput}
@@ -87,6 +119,7 @@ export function PaymentDetails({validHandler}) {
             value={second}
           />
           <input
+            ref={(btn)=>{input3Ref=btn}}
             placeholder="****"
             maxLength={4}
             onChange={handleCardNoInput}
@@ -94,6 +127,7 @@ export function PaymentDetails({validHandler}) {
             value={third}
           />
           <input
+            ref={(btn)=>{input4Ref=btn}}
             placeholder="****"
             maxLength={4}
             onChange={handleCardNoInput}
@@ -106,6 +140,7 @@ export function PaymentDetails({validHandler}) {
             <div>MM/YY</div>
             <div className="flex">
               <input
+            ref={(btn)=>{inputM=btn}}
                 placeholder="mm"
                 maxLength={2}
                 onChange={handleCardNoInput}
@@ -114,6 +149,7 @@ export function PaymentDetails({validHandler}) {
               />
               <span>/</span>
               <input
+            ref={(btn)=>{inputY=btn}}
                 placeholder="yy"
                 maxLength={2}
                 onChange={handleCardNoInput}
@@ -126,6 +162,7 @@ export function PaymentDetails({validHandler}) {
             <div>CVV</div>
             <div className="flex">
               <input
+            ref={(btn)=>{inputCvv=btn}}
                 placeholder="***"
                 maxLength={3}
                 onChange={handleCardNoInput}

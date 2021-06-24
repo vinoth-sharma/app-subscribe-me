@@ -1,13 +1,16 @@
 import "./confirmation.scss";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
-import React, { useEffect } from "react";
+import React, { ChangeEvent, Dispatch, useEffect } from "react";
 import {
   getGlobalStorageData,
   setUserSelection,
 } from "../../service/global.service";
 
-export function Confirmation({ validHandler }) {
+interface ConfirmationProp {
+  validHandler: Dispatch<boolean>;
+}
+export function Confirmation({ validHandler }: ConfirmationProp) {
   const [terms, setTerms] = React.useState(false);
   const [email, setEmail] = React.useState("");
 
@@ -28,14 +31,14 @@ export function Confirmation({ validHandler }) {
   useEffect(() => {
     if (validateEmail(email) && terms) validHandler(true);
     else validHandler(false);
-  }, [email, terms,validHandler]);
+  }, [email, terms, validHandler]);
 
-  const handleCheckBoxChange = (event) => {
+  const handleCheckBoxChange = (event: ChangeEvent<HTMLInputElement>) => {
     setTerms(event.target.checked);
     setUserSelection(event.target.name, event.target.checked);
   };
 
-  const inputHandler = (event) => {
+  const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
     setUserSelection(event.target.name, event.target.value);
   };
@@ -61,6 +64,7 @@ export function Confirmation({ validHandler }) {
       <div className="line-item">
         <p>Please enter your email address</p>
         <TextField
+          autoFocus
           name="email"
           id="standard-basic"
           label="Email"
@@ -78,7 +82,7 @@ export function Confirmation({ validHandler }) {
           inputProps={{ "aria-label": "primary checkbox" }}
         />
         <p onClick={() => setTerms(!terms)} className="cursorPointer">
-          By Clicking, you agree to our terms and conditions.
+          By Accepting,You agree to our terms and conditions.
         </p>
       </div>
     </>

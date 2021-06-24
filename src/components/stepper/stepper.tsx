@@ -180,18 +180,6 @@ function getSteps() {
   return ["Select Plan", "Add Credit Card Details", "Confirmation"];
 }
 
-// function getStepContent(step) {
-//   switch (step) {
-//     case 0:
-//       return <SelectSubscriptionParams />;
-//     case 1:
-//       return <PaymentDetails validHandler={setIsCardValid} />;
-//     case 2:
-//       return <Confirmation />;
-//     default:
-//       return <Confirmation />;
-//   }
-// }
 
 export default function CustomizedSteppers() {
   const classes = useStyles();
